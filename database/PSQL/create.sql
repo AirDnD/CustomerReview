@@ -1,6 +1,3 @@
-
-
-
 INSERT INTO reviews (listing_id,user_id,accuracy,communication,cleanliness,location,check_in,_value,_date,content) VALUES (1860839,1133267,1.5,2.5,2.5,3.5,3,2.5,current_timestamp,'testing');
 
 INSERT INTO reviews (listing_id,user_id,accuracy,communication,cleanliness,location,check_in,_value,_date,content) VALUES (9182987,9753424,2,3.5,2,3,4,3.5,current_timestamp,'testing');

@@ -1,5 +1,4 @@
- 
-CREATE KEYSPACE review_db
+ CREATE KEYSPACE review_db
 
 WITH REPLICATION = {
    'class' : 'SimpleStrategy',

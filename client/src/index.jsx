@@ -2,4 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx'
 
-ReactDOM.render(<App listing_id={52}/>, document.getElementById('reviews'));
+
+const IDGenBottom = () => {
+  return Math.floor((Math.random() * 1000000)) + 9000000;
+}
+
+ReactDOM.render(<App listing_id={8140709}/>, document.getElementById('reviews'));

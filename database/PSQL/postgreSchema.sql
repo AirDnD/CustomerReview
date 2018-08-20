@@ -1,6 +1,5 @@
- 
--- \l reviews_db
 
+-- \l reviews_db
 CREATE TABLE users (
   id int NOT NULL,
   name text,
@@ -50,5 +49,5 @@ CREATE TABLE reviews (
  -- \COPY (select * FROM users INNER JOIN reviews ON users.id = reviews.user_id ORDER BY reviews.id ASC) TO 'combine.csv' (format CSV);
 
 
- explain analyze select users.name, users.photo, reviews._date, reviews.content FROM users JOIN reviews on reviews.user_id = users.id where reviews.listing_id = 4;
-// above will display where the source of latency is
+--  explain analyze select users.name, users.photo, reviews._date, reviews.content FROM users JOIN reviews on reviews.user_id = users.id where reviews.listing_id = 4;
+-- // above will display where the source of latency is

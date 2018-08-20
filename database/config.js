@@ -1,13 +1,13 @@
+require('newrelic');
+const { Pool } = require('pg')
 
-const mysql = require('mysql');
-
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'review_db',
+const pool = new Pool({
+	host: 'localhost',
+	user: '',
+	password: '',
+	database: 'review_db',
 });
 
-db.connect();
+pool.connect()
 
-module.exports = db;
+module.exports = pool;

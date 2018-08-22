@@ -14,7 +14,7 @@ CREATE TABLE listings (
 );
 
 CREATE TABLE reviews (
-  id int NOT NULL,
+  id SERIAL NOT NULL,
   listing_id int NOT NULL,
   user_id int NOT NULL,
   accuracy DECIMAL(2,1) NOT NULL,
@@ -23,9 +23,8 @@ CREATE TABLE reviews (
   location DECIMAL(2,1) NOT NULL,
   check_in DECIMAL(2,1) NOT NULL,
   _value DECIMAL(2,1) NOT NULL,
-  _date date NOT NULL, --date is specific to postgress
+  _date date NOT NULL,
   content text,
-  -- is_reported boolean NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (listing_id) REFERENCES listings(id),
   FOREIGN KEY (user_id) REFERENCES users(id)

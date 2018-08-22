@@ -1,4 +1,7 @@
+.dockerignore
 user_images
+*.csv
 node_modules
 *.csv
 *.DS_Store
+splitReview

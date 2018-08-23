@@ -1,56 +1,77 @@
 var db = require('./config.js');
-var dg= ('../data_generator.js')
 
-const getRatings = (listing_id, whenRatings) => {
+const getReviews = (listing_id, callback) => {
+  const qs = `select users.name, users.photo, reviews._date, reviews.content FROM users INNER JOIN reviews ON users.id = reviews.user_id where reviews.listing_id = ${listing_id};`
+   db.query(qs, callback);
+}
+
+
+const getRatings = (listing_id, callback) => {
   const qs = `SELECT accuracy, communication, cleanliness, location, check_in, _value \
               FROM reviews WHERE listing_id = ${listing_id}`;
-
-  db.query(qs, whenRatings);
+  db.query(qs, callback);
 }
 
-const getReviews = (listing_id, whenReviews) => {
-  const qs = `select users.name, users.photo, reviews._date, reviews.content, reviews.is_reported \
-              FROM users JOIN reviews \
-              WHERE reviews.listing_id = ${listing_id} AND users.id = reviews.user_id
-              ORDER BY reviews._date DESC`;
 
-  db.query(qs, whenReviews); 
+
+const insertReview = (inputObj, callback) => {
+  const qs =  `INSERT INTO reviews (listing_id,user_id,accuracy,communication,cleanliness,location,check_in,_value,_date,content) \
+  VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10);`
+  db.query(qs, Object.values(inputObj), callback)
 }
 
-const insertReview = () => {
-  let qs;
-  for (let i = 1; i <= 100; i++) {
-    let listing_id = i;
-    let users = dg.getUsers();
-    users.forEach(function(user) {
-      let review = dg.getReview();
-      review.listing_id = listing_id;
-      review.user_id = user;
-
-      qs = `INSERT INTO reviews (listing_id, user_id, accuracy, communication, cleanliness, location, check_in, \
-            _value, _date, content) \
-            VALUES ("${review.listing_id}", "${review.user_id}", "${review.accuracy}", "${review.communication}", \
-             "${review.cleanliness}", "${review.location}", "${review.check_in}", "${review._value}", "${review.date}", "${review._content}")`;
-      db.query(qs, function(err) {
-          if(err) {
-              console.log(err);
-              return;
-          }
-      });
-    });
-  }
-};
+var inputObj = {
+  listing_id:8140709,
+  user_id: 1133267,
+  accuracy:2.5,
+  communication: 2.5,
+  cleanliness: 2.5,
+  location: 2.5,
+  check_in: 2.5,
+  _value: 2.5,
+  _date: '2017-01-28',
+  content: "tis a great place"
+  };
 
 
+var inputObj = {
+  "listing_id":8140709,
+  "user_id": 1133267,
+  "accuracy":2.5,
+  "communication": 2.5,
+  "cleanliness": 2.5,
+  "location": 2.5,
+  "check_in": 2.5,
+  "_value": 2.5,
+  "_date": '2017-01-28',
+  "content": "tis a great place"
+  };
+
+
+const randomRating  = () => {
+  return Math.round((Math.random() * (4 - 1) + 1) * 2)/2;
+}
+var inputObj = {
+  listing_id:8140709,
+  user_id: 1133267,
+  accuracy:randomRating(),
+  communication: randomRating(),
+  cleanliness: randomRating(),
+  location: randomRating(),
+  check_in: randomRating(),
+  _value: randomRating(),
+  _date: '2017-01-28',
+  content: "tis a great place"
+  };
+
+// getReviews(8140709, console.log)
+// getRatings(8140709, console.log)
+// insertReview(inputObj, console.log)
 
 module.exports = {
+  getReviews: getReviews,
   getRatings: getRatings,
-  getReviews: getReviews
+  insertReview: insertReview
 }
 
 
-
-// Create / POST - create a new item
-// Read / GET - read an item
-// Update / PUT - update an item
-// Delete / DELETE - delete an item

@@ -1,6 +1,5 @@
- 
--- \l reviews_db
 
+-- \l reviews_db
 CREATE TABLE users (
   id int NOT NULL,
   name text,
@@ -15,7 +14,7 @@ CREATE TABLE listings (
 );
 
 CREATE TABLE reviews (
-  id int NOT NULL,
+  id SERIAL NOT NULL,
   listing_id int NOT NULL,
   user_id int NOT NULL,
   accuracy DECIMAL(2,1) NOT NULL,
@@ -24,9 +23,8 @@ CREATE TABLE reviews (
   location DECIMAL(2,1) NOT NULL,
   check_in DECIMAL(2,1) NOT NULL,
   _value DECIMAL(2,1) NOT NULL,
-  _date date NOT NULL, --date is specific to postgress
+  _date date NOT NULL,
   content text,
-  -- is_reported boolean NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (listing_id) REFERENCES listings(id),
   FOREIGN KEY (user_id) REFERENCES users(id)
@@ -50,5 +48,5 @@ CREATE TABLE reviews (
  -- \COPY (select * FROM users INNER JOIN reviews ON users.id = reviews.user_id ORDER BY reviews.id ASC) TO 'combine.csv' (format CSV);
 
 
- explain analyze select users.name, users.photo, reviews._date, reviews.content FROM users JOIN reviews on reviews.user_id = users.id where reviews.listing_id = 4;
-// above will display where the source of latency is
+--  explain analyze select users.name, users.photo, reviews._date, reviews.content FROM users JOIN reviews on reviews.user_id = users.id where reviews.listing_id = 4;
+-- // above will display where the source of latency is

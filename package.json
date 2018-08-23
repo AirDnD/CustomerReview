@@ -9,6 +9,7 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "webpack -d --watch",
+    "servers": "redis-server | postgres -D /usr/local/var/postgres",
     "start": "nodemon ./server/server.js"
   },
   "dependencies": {
@@ -19,8 +20,11 @@
     "jquery": "^3.3.1",
     "morgan": "^1.9.0",
     "mysql": "^2.16.0",
+    "newrelic": "^4.8.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "redis": "^2.8.0",
+    "response-time": "^2.3.2",
     "webpack": "^3.12.0",
     "xml-js": "^1.6.7"
   },

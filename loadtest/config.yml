@@ -1,0 +1,57 @@
+config:
+  target: "http://localhost:3002"
+  phases:
+    - duration: 60
+      arrivalRate: 100
+  processor: "./my-functions.js"
+
+scenarios:
+  - name: "User visiting the reviews page, checking out all reviews"
+    weight: 80
+    flow:
+    - function: "generateRandomData"
+    - loop:
+      - get:
+          url: "/api/listing/comments/{{$loopElement}}"
+      over: 
+        - "{{ listing_a }}"
+        - "{{ listing_b }}"
+        - "{{ listing_c }}"
+        - "{{ listing_d }}"
+        - "{{ listing_e }}"
+        - "{{ listing_f }}"
+        - "{{ listing_g }}"
+        - "{{ listing_h }}"
+        - "{{ listing_i }}"
+        - "{{ listing_j }}"
+    - loop:
+      - get:
+          url: "/api/listing/ratings/{{$loopElement}}"
+      over: 
+        - "{{ listing_a }}"
+        - "{{ listing_b }}"
+        - "{{ listing_c }}"
+        - "{{ listing_d }}"
+        - "{{ listing_e }}"
+        - "{{ listing_f }}"
+        - "{{ listing_g }}"
+        - "{{ listing_h }}"
+        - "{{ listing_i }}"
+        - "{{ listing_j }}"
+  - name: "User making new comments"
+    weight: 20
+    flow:
+    - function: "generateRandomData"
+    - post:
+        url: "/api/listing/insert"
+        json:
+          listing_id: "{{ listing_a }}"
+          user_id: "{{ user_id }}"
+          accuracy: "{{ rating }}"
+          communication: "{{ rating }}"
+          cleanliness: "{{ rating }}"
+          location: "{{ rating }}"
+          check_in: "{{ rating }}"
+          _value: "{{ rating }}"
+          _date: "{{ date }}"
+          content: "{{ contentOne }}"

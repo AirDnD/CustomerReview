@@ -17,7 +17,7 @@ const UsersData = () => {
 }
 
 const IDGen = () => {
-	return Math.floor((Math.random() * 10000000))
+	return Math.floor((Math.random() * 10000000)) + 1;
 }
 
 const getRating = () => {
@@ -32,29 +32,27 @@ const getDate = () => {
   return randoDate.toISOString().slice(0, 19).replace('T', ' ');
 };
 
-const ReviewData = () => {
-	var counter = 10010000
-	for(var i = 0; i < 5000; i++){
-		var data = '';
-		for(var n = 0; n <= 1000; n++){
-			data += `${counter},${IDGen()},${IDGen()},${getRating()},${getRating()},${getRating()},${getRating()},${getRating()},${getRating()},${getDate()},${faker.lorem.sentences()}\n`
-			counter ++;
-		}
-		fs.appendFileSync('ReviewData.csv', data, 'utf8');
-		n = 0
-		console.log(i)
-	}
+const spikeGen = () => {
+	return Math.floor(Math.random() * 100) + 50;
 }
 
 
+const ReviewData = () => {
+	var counter = 0
+	for(var i = 0; i < 1; i++){
+		var data = '';
+		for(var n = 0; n <= 50; n++){
+			data += `${counter},${IDGen()},${IDGen()},${getRating()},${getRating()},${getRating()},${getRating()},${getRating()},${getRating()},${getDate()},${faker.lorem.sentences()}\n`
+			counter ++;
+		}
+		fs.appendFileSync('testreviewdata.csv', data, 'utf8');
+		n = 0
 
-// listing_id, user_id, 
-// accuracy, communication, cleanliness, location, check_in, _value,
- // _date, content
+		if(i % 1000 === 0)
+			console.log(i)
+	}
+}
 
-
-// console.log(faker.date.between('2015-01-01', '2015-01-05'))
-// console.log(getDate())
-// UsersData();
 ReviewData()
+
 

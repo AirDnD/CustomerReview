@@ -1,15 +1,15 @@
 # Project Name
 
 > Systems Design application with a goal of hitting at least 1000 requests per second once uploaded onto AWS and load balanced. The final implementation went up to 4700 RPS.
+> Customer Review module allows user to see general listing reviews and review rating summary
 
 
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/AirDnD/reservation-service
+  - https://github.com/AirDnD/about-service
+  - https://github.com/AirDnD/Ringo-Proxy
 
 ## Table of Contents
 
@@ -38,6 +38,17 @@ From within the root directory:
 ```sh
 npm install -g webpack
 npm install
+
+```
+
+Starting Webpack and Running Server:
+
+```sh
+npm run build //webpack on watch
+npm run test // start testing with jest
+npm run server // start redis and postgre
+npm start
+
 ```
 
 ###	CRUD
@@ -56,17 +67,23 @@ POST: curl -H "Content-Type: application/json" -X GET -d '{"listing_id:12, user_
             _value:3, _date: 2018-08-20, content: great location "}' http://localhost:3002/api/reviews/user/:user_id/accuracy/:accuracy/communication/:communication/cleanliness/:cleanliness/location/:location/checkin/:check_in/value/:_value/date/:_date, content)
 ```
 
-Read / GET - read an review
+Read / GET - read review ratings  
 ```sh
-GET: curl -H "Content-Type: application/json" -X GET -d '{"review_id: 100"}' http://localhost:3002/api/reviews/:reviewID 
+GET: curl -H "Content-Type: application/json" -X GET -d '{"review_id: 100"}' http:/localhost:3002/api/listing/comments/:listingid
 ```
 
+/api/listing/comments/:listingid
+
+Read / GET - read review
+```sh
+GET: curl -H "Content-Type: application/json" -X GET -d '{"review_id: 100"}' http://localhost:3002/api/listing/ratings/:listingid
+```
 Update / PUT - update a review
 ```sh
-PUT: curl -H "Content-Type: application/json" -X PUT -d '{"value: 4"}' http://localhost:3002/api/value/:value
+/api/listing/insert
 ```
 
 Delete / DELETE - delete an item
 ```sh
-DELETE: curl -H "Content-Type: application/json" -X GET -d '{"review_id: 100"}' http://localhost:3002/api/reviews/:reviewID 
+DELETE: curl -H "Content-Type: application/json" -X GET -d '{"review_id: 100"}' http:/localhost:3002/api/listing/comments/:listingid
 ```
